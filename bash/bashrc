@@ -29,7 +29,7 @@ alias psa=psadmin-plus
 #
 # Prompt
 #
-export PS1="\u@\[$(tput bold)\]\[$(tput setaf 1)\]\h\[$(tput sgr0)\]:\w> "
+export PS1="\u@\[$(tput bold)\]\[$(tput setaf 2)\]\h\[$(tput sgr0)\]:\w> "
 
 #
 # Additional Tools
