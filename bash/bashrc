@@ -18,7 +18,7 @@ esac
 # Aliases
 #
 alias ll="ls -l"
-alias la='ls -A'
+alias la='ls -la'
 alias q="exit"
 alias cd.="cd .."
 alias cd..="cd ../.."
