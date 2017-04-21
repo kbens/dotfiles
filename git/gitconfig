@@ -1,0 +1,14 @@
+[user]
+	name = Kyle Benson
+	email = kyle@psadmin.io
+
+[core]
+	editor = vi
+	excludesfile = ~/.gitignore_global
+	whitespace = warn
+
+[github]
+	user = kbens
+
+[color]
+	ui = auto

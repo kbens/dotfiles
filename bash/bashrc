@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+#
+# OS Specific Settings
+#
+case $(uname) in
+  (Darwin)
+  ;;
+  (Linux)
+  ;;
+  (SunOS)
+  ;;
+  (CYGWIN*)
+  ;;
+esac
+
+#
+# Aliases
+#
+alias ll="ls -l"
+alias la='ls -A'
+alias q="exit"
+alias cd.="cd .."
+alias cd..="cd ../.."
+alias cd...="cd ../../.."
+alias dfg="df -BG"
+alias psa=psadmin-plus
+
+#
+# Prompt
+#
+export PS1="\u@\[$(tput bold)\]\[$(tput setaf 1)\]\h\[$(tput sgr0)\]:\w> "
+
+#
+# Additional Tools
+#
+#export SQLPATH="$DOTFILES/sql/oracle" # SQL script path for sqlplus
+
