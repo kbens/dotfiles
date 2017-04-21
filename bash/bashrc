@@ -13,6 +13,11 @@ case $(uname) in
   (CYGWIN*)
   ;;
 esac
+# Bash on Windows
+winchk=$(cat /proc/sys/kernel/osrelease)
+if [[ $winchk == *"Microsoft"* ]]; then
+  win=true;
+fi
 
 #
 # Aliases
