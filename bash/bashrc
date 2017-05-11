@@ -19,6 +19,7 @@ if [[ $winchk == *"Microsoft"* ]]; then
   win=true;
   function _vpnfix(){ sed '1h;1d;$!H;$!d;G' /etc/resolv.conf > /tmp/resolv.temp;}
   alias vpnfix="_vpnfix && sudo mv /tmp/resolv.temp /etc/resolv.conf"
+  alias cdc="cd /mnt/c"
 fi
 
 #
