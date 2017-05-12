@@ -37,7 +37,8 @@ alias psa=psadmin-plus
 #
 # Prompt
 #
-export PS1="\u@\[$(tput bold)\]\[$(tput setaf 2)\]\h\[$(tput sgr0)\]:\w> "
+source ~/.git-prompt.sh
+export PS1='\u@\[$(tput bold)\]\[$(tput setaf 2)\]\h\[$(tput sgr0)\]:\w$(__git_ps1 " (%s)")> '
 
 #
 # Additional Tools
