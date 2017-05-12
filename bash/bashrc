@@ -38,6 +38,7 @@ alias psa=psadmin-plus
 # Prompt
 #i
 source ~/.git-prompt.sh
+source ~/.git-completion.sh
 #GIT_PS1_SHOWCOLORHINTS=true
 GIT_PS1_SHOWDIRTYSTATE=true
 export PS1='\u@\[$(tput bold)\]\[$(tput setaf 2)\]\h\[$(tput sgr0)\]: \w$(__git_ps1 " [%s]") $ '
