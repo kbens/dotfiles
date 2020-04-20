@@ -7,7 +7,7 @@ case $(uname) in
   (Darwin)
   ;;
   (Linux)
-    is_oci = true
+    if [ -n $OCI_CONFIG_FILE ]; then is_oci_shell=true; fi
   ;;
   (SunOS)
   ;;
@@ -38,14 +38,11 @@ alias psa=psadmin-plus
 #
 # Prompt
 #
-# TODO - how can we have git hints in PS1 along with OCI?
-if [ ! $is_oci ]; then
-  source ~/.git-prompt.sh
-  source ~/.git-completion.sh
-  #GIT_PS1_SHOWCOLORHINTS=true
-  GIT_PS1_SHOWDIRTYSTATE=true
-  export PS1='\u@\[$(tput bold)\]\[$(tput setaf 2)\]\h\[$(tput sgr0)\]: \w$(__git_ps1 " [%s]") $ '
-fi
+GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_SHOWDIRTYSTATE=true
+source ~/.git-prompt.sh
+source ~/.git-completion.sh
+export PS1='\u@\[$(tput bold)\]\[$(tput setaf 2)\]\h\[$(tput sgr0)\]: \w$(__git_ps1 " [%s]") $ '
 
 #
 # Additional Tools
@@ -55,6 +52,9 @@ fi
 #
 # OCI
 #
-if [ $is_oci ]; then
+if [ $is_oci_shell ]; then
   source /etc/bashrc.cloudshell
+  export TZ="/usr/share/zoneinfo/America/Chicago"
+  #OCI_CLI_PROFILE
+  export PS1='\[\033[90m\]┌[\[\033[37m\]\t\[\033[90m\]]-[\[\033[32m\]\u\[\033[90m\] at ☁️ ]-[\[\033[35m\]$OCI_CLI_PROFILE\[\033[90m\]]\n└[\[\033[34m\]\w\[\033[90m\]]\[\033[36m\]$(__git_ps1 " [%s]") \[\033[37m\]$ '
 fi
