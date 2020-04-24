@@ -39,25 +39,45 @@ Begin {
     ForEach ($module In (Get-ChildItem -Path $DotfilesModulePath -Filter *.psm1)) {
         Import-Module $module.FullName
     }
+        
+    $toolsLocation = $env:ChocolateyToolsLocation
+    if ($toolsLocation -eq $null) {
+      $toolsLocation = Join-Path $env:systemdrive 'tools'
+    }
 
     Write-Information "Dotfiles: $Dotfiles"
     Write-Information "Documents: $Documents"
     Write-Information "Home: $HOME"
+    Write-Information "Tools: $toolsLocation"
 
     $SymlinkMappings = @(
             @("$Dotfiles\powershell\profile.ps1", "$Documents\WindowsPowershell\profile.ps1"),
             @("$Dotfiles\powershell\profile.ps1", "$Documents\Powershell\Microsoft.PowerShell_profile.ps1"),
-            @("$Dotfiles\git\gitconfig", "$HOME\.gitconfig")
+            @("$Dotfiles\virtuawin\virtuawin.cfg", "$env:APPDATA\VirtuaWin\virtuawin.cfg"),
+            @("$Dotfiles\cmder", "$toolsLocation\Cmder\config"),
             # @("$Dotfiles\vim\vimrc", "$HOME\_vimrc"),
             # @("$Dotfiles\vim", "$HOME\vimfiles"),
             # @("$Dotfiles\vim\plug\plug.vim", "$HOME\vimfiles\autoload\plug.vim"),
             # @("$Dotfiles\vscode\windows-settings.json", "$env:APPDATA\Code\User\settings.json")
+            @("$Dotfiles\git\gitconfig", "$HOME\.gitconfig")
         )
 
     Function TestIsAdmin() {
         If (!(Test-IsAdmin)) {
             Throw "To continue run this script as an admin"
             Return
+        }
+    }
+    
+    Function ValidateVariables() {
+        Write-Information "Make sure to set MOS_USERNAME and MOS_PASSWORD - TODO"
+    }
+
+    Function InstallChocoPackages() {
+        if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
+            choco install -y .\choco\packages.config -verbose
+        } else {
+            choco install -y .\choco\packages.config
         }
     }
 
@@ -101,7 +121,9 @@ Begin {
 
 Process {
     If ($Install) {
-        TestIsAdmin
+        TestIsAdmin  
+        ValidateVariables      
+        InstallChocoPackages
         $SymlinkMappings | ForEach-Object { NewSymlinkWithBackup $_[0] $_[1] }
         Write-Output "Script Run Successfully. Please restart powershell for changes to take effect"
     } ElseIf ($Uninstall) {
